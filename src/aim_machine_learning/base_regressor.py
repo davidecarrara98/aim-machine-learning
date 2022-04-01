@@ -70,7 +70,7 @@ class Regressor(ABC):
             Dizionario (o oggetto di tipo dizionario) contenente l'output della call all'oggetto di tipo metrica. Una metrica può contenere un valore puntuale,
             la deviazione standard dell'errore, etc.
         '''
-        from aim_machine_learning.metrics import Evaluator
+        from aim_machine_learning.evaluator import Evaluator
         y_pred = self.predict(X)
 
         if isinstance(eval_obj, Evaluator):
