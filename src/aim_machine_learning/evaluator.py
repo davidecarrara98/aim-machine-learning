@@ -21,8 +21,13 @@ class Evaluator:
         if self.metric is None:
             raise CustomError('You did not specify a metric')
         if self.metric == 'mse':
-            return np.linalg.norm(y_true - y_pred, 2) / y_true.shape[0]
+            mean = np.power(y_true - y_pred, 2).mean()
+            std  = np.std(y_true - y_pred)
+            return {'mean': mean, 'std':std}
         if self.metric == 'mae':
-            return np.linalg.norm(y_true - y_pred, 1) / y_true.shape[0]
+            mean = np.abs(y_true - y_pred).mean()
+            std  = np.std(y_true - y_pred)
+            return {'mean': mean, 'std':std}
         if self.metric == 'corr':
-            return 1 - np.corrcoef(y_true, y_pred)[0, 1]
+            corr = np.corrcoef(y_true, y_pred)[0, 1]
+            return {'corr': corr}

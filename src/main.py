@@ -135,7 +135,7 @@ print(full_eval.kfold_cv_eval(eval_obj=eval_obj, K=5), file=f)
 full_eval = ModelEvaluator(model_class=NeighborRegressor, params={'k': 4}, X=X, y=y)
 print(full_eval.kfold_cv_eval(eval_obj=eval_obj, K=5), file=f)
 
-# Adesso siamo interessati a scoprire il valore ottimale (in termini di errore minimo) del parametro k del neighbors regressor.
+# %%Adesso siamo interessati a scoprire il valore ottimale (in termini di errore minimo) del parametro k del neighbors regressor.
 # Per fare ciò, scriviamo una classe ParametersTuner che si occupi, data una classe di modello, un criterio di validazione (e.g. train-test split o k-fold cv) e dei dati
 # di stimare il miglior set di parametri di quel modello.
 # Utilizzeremo il miglior upper bound del MSE, ovvero il modello con la minore somma di MSE medio + deviazione standard del MSE.
