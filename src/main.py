@@ -40,7 +40,7 @@ except TypeError:
     print('Regressor e\' una classe astratta.')
 
 # %%
-data_path = 'data/dataset1.csv'
+data_path = 'data/dataset3.csv'
 # Lo scopo del progetto è implementare dei regressori, figli della classe astratta Regressor con molteplici funzionalità.
 # Implementeremo anche una classe Evaluator che utilizzeremo per valutare gli output di un modello.
 from aim_machine_learning.evaluator import Evaluator
@@ -198,7 +198,7 @@ print(best_params_skl['n_neighbors'] == best_params_kfold['k'], file=f)
 # FATE IN MODO CHE FUNZIONI ANCHE LA CHIAMATA PRECEDENTE
 # Quale tipo di validazione vi sembra dare un output più stabile?
 
-# DA QUI IN POI SOLO CON DATASET3 E TEST CASE NASCOSTO DATASET5
+# %% DA QUI IN POI SOLO CON DATASET3 E TEST CASE NASCOSTO DATASET5
 if data_path in ['data/dataset3.csv', 'data/dataset5.csv']:
     # Utilizzando il dataset3 notiamo come questo regressore sia inadatto a questa task.
     # Creiamo un nuovo regressore UNIVARIATO chiamato MultipleRegressor che cerchi l'intero a tale che, moltiplicato per X, approssimi al meglio y al netto di una costante.

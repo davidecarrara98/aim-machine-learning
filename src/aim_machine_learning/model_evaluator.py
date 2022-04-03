@@ -43,10 +43,11 @@ class ModelEvaluator:
             X_test, y_test = self.X[test_mask], self.y[test_mask]
             X_train, y_train = self.X[np.logical_not(test_mask)], self.y[np.logical_not(test_mask)]
 
-
+            # Fit the model and predict
             self.model.fit(X_train, y_train)
-            y_pred = self.model.predict(X_test)
-            err_dict = eval_obj(y_test, y_pred)
+            err_dict = self.model.evaluate(X_test, y_test, eval_obj=eval_obj)
+
+            # Evaluate error, depending on metric
             if eval_obj.metric in ['mse', 'mae']:
                 errs[i] = err_dict['mean']
                 stds[i] = err_dict['std']
@@ -54,6 +55,7 @@ class ModelEvaluator:
             if eval_obj.metric in ['corr']:
                 errs[i] = err_dict['corr']
 
+        # Return error dict depending on metric
         if eval_obj.metric in ['mse', 'mae']:
             return {'mean' : np.round(errs.mean(),2), 'std' : np.round(stds.mean(), 2)}
 

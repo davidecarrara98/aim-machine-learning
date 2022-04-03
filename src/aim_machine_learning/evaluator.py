@@ -33,3 +33,6 @@ class Evaluator:
         if self.metric == 'corr':
             corr = np.corrcoef(y_true, y_pred)[0, 1]
             return {'corr': np.round(corr,2)}
+
+    def __str__(self):
+        return f'Current metric is {self.metric}'

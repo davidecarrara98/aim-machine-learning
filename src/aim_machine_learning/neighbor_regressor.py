@@ -1,5 +1,6 @@
 import numpy as np
 from aim_machine_learning.base_regressor import Regressor
+from sklearn.neighbors import KNeighborsRegressor
 from scipy.spatial.distance import cdist
 
 
@@ -24,3 +25,9 @@ class NeighborRegressor(Regressor):
         indices = np.argsort(dists, axis=1)[:, :self.k]
 
         return np.mean(self.y[indices], axis=1)
+
+class MySklearnNeighborRegressor(KNeighborsRegressor, Regressor):
+    def __init__(self, n_neighbors):
+        super().__init__(n_neighbors=n_neighbors)
+
+
