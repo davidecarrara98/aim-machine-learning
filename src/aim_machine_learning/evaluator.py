@@ -21,13 +21,15 @@ class Evaluator:
         if self.metric is None:
             raise CustomError('You did not specify a metric')
         if self.metric == 'mse':
-            mean = np.power(y_true - y_pred, 2).mean()
-            std  = np.std(y_true - y_pred)
-            return {'mean': mean, 'std':std}
+            err = np.power(y_true - y_pred, 2)
+            mean = err.mean()
+            std  = err.std()
+            return {'mean': np.round(mean,2), 'std':np.round(std,2)}
         if self.metric == 'mae':
-            mean = np.abs(y_true - y_pred).mean()
-            std  = np.std(y_true - y_pred)
-            return {'mean': mean, 'std':std}
+            err = np.abs(y_true - y_pred)
+            mean = err.mean()
+            std  = err.std()
+            return {'mean': np.round(mean,2), 'std': np.round(std,2)}
         if self.metric == 'corr':
             corr = np.corrcoef(y_true, y_pred)[0, 1]
-            return {'corr': corr}
+            return {'corr': np.round(corr,2)}

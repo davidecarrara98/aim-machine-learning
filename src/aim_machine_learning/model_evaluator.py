@@ -30,7 +30,7 @@ class ModelEvaluator:
 
         :param eval_obj: evaluator object
         :param K: number of spli for k-fold crossvalidation
-        :return: error score
+        :return: dict with error and std (if metric is mse or mae)
         """
         split_l = int(self.X.shape[0] / K)
         errs = np.zeros(shape=K)
@@ -43,8 +43,21 @@ class ModelEvaluator:
             X_test, y_test = self.X[test_mask], self.y[test_mask]
             X_train, y_train = self.X[np.logical_not(test_mask)], self.y[np.logical_not(test_mask)]
 
-            self.model.fit(X_train, y_train)
-            errs[i] = self.model.evaluate(X_test, y_test, eval_obj)['mean']
-            stds[i] = self.model.evaluate(X_test, y_test, eval_obj)['std']
 
-        return np.mean(errs)
+            self.model.fit(X_train, y_train)
+            y_pred = self.model.predict(X_test)
+            err_dict = eval_obj(y_test, y_pred)
+            if eval_obj.metric in ['mse', 'mae']:
+                errs[i] = err_dict['mean']
+                stds[i] = err_dict['std']
+
+            if eval_obj.metric in ['corr']:
+                errs[i] = err_dict['corr']
+
+        if eval_obj.metric in ['mse', 'mae']:
+            return {'mean' : np.round(errs.mean(),2), 'std' : np.round(stds.mean(), 2)}
+
+        if eval_obj.metric in ['corr']:
+            return {'corr' : np.round(errs.mean(),2)}
+
+        return
