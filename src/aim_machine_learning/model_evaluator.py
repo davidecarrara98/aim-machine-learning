@@ -3,7 +3,7 @@ import numpy as np
 
 class ModelEvaluator:
     def __init__(self, model_class, X, y, params):
-        self.model = model_class(params['k'])
+        self.model = model_class(**params)
         self.X, self.y = X, y
 
     def train_test_split_eval(self, eval_obj, test_proportion=0.2):

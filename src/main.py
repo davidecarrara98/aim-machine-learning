@@ -39,8 +39,6 @@ try:
 except TypeError:
     print('Regressor e\' una classe astratta.')
 
-# %%
-data_path = 'data/dataset3.csv'
 # Lo scopo del progetto è implementare dei regressori, figli della classe astratta Regressor con molteplici funzionalità.
 # Implementeremo anche una classe Evaluator che utilizzeremo per valutare gli output di un modello.
 from aim_machine_learning.evaluator import Evaluator

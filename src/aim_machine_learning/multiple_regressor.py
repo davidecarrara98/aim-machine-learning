@@ -1,4 +1,5 @@
 from aim_machine_learning.base_regressor import Regressor
+import numpy as np
 
 class MultipleRegressor(Regressor):
     def __init__(self, a, b, **params):
@@ -9,7 +10,9 @@ class MultipleRegressor(Regressor):
         pass
 
     def predict(self, X):
-        y = self.b + self.a * X
+        y = self.b + np.dot(X, self.a)
         y = y.squeeze()
-        print(y.shape)
         return y
+
+    def __add__(self, other):
+        return MultipleRegressor(a=[[self.a], [other.a]], b=self.b + other.b)
